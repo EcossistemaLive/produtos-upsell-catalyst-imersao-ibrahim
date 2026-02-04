@@ -14,8 +14,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* * LIVE CONSULTORIA - DESIGN SYSTEM V6.0
-         * Critical CSS Variables & Refractive Glass
+        /* * LIVE CONSULTORIA - DESIGN SYSTEM V6.0 (Elite & AI-Driven)
+         * Critical CSS Inline for Performance < 50ms FCP
          */
 
         :root {
@@ -60,25 +60,33 @@
             position: relative;
         }
 
+        /* Camada Textura (Z -2) */
         .bg-texture {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
             opacity: 0.05;
             z-index: -2;
             pointer-events: none;
         }
 
+        /* Camada Luz (Z -1) - Mobile Aurora */
         .aurora-glow {
             position: fixed;
-            top: -20%; left: 50%;
+            top: -20%;
+            left: 50%;
             transform: translateX(-50%);
-            width: 80vw; height: 80vw;
+            width: 80vw;
+            height: 80vw;
             background: radial-gradient(circle, rgba(0,232,0,0.08) 0%, rgba(6,25,42,0) 70%);
             z-index: -1;
             pointer-events: none;
         }
 
+        /* Layout */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -86,7 +94,10 @@
         }
 
         /* Kinetic Typography */
-        h1, h2, h3 { font-weight: 600; letter-spacing: -0.02em; }
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
 
         .kinetic-text {
             background: var(--kinetic-gradient);
@@ -97,11 +108,11 @@
         }
 
         @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+            0% { background-position: 0% 50%; letter-spacing: -0.02em; }
+            100% { background-position: 100% 50%; letter-spacing: -0.01em; }
         }
 
-        /* Glass Cards */
+        /* Glass Cards with Physics */
         .glass-card {
             background: var(--live-glass);
             backdrop-filter: var(--glass-blur);
@@ -109,22 +120,36 @@
             border: 1px solid var(--border-subtle);
             border-radius: 16px;
             padding: 1.5rem;
-            transition: transform 0.4s var(--spring-bounce), border-color 0.3s var(--ease-fluid), background 0.3s ease;
+            transition: transform 0.4s var(--spring-bounce), 
+                        border-color 0.3s var(--ease-fluid),
+                        background 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
+        /* Flashlight Effect Implementation */
         .glass-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(255, 255, 255, 0.06), 
+                transparent 40%
+            );
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
             z-index: 1;
         }
 
+        /* Hover only on devices that support it */
         @media (hover: hover) {
             .glass-card:hover {
                 transform: translateY(-4px) scale(1.005);
@@ -132,10 +157,15 @@
                 background: var(--live-glass-hover);
                 box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             }
-            .glass-card:hover::before { opacity: 1; }
+            .glass-card:hover::before {
+                opacity: 1;
+            }
         }
 
-        section { margin-bottom: 4rem; }
+        /* Section Spacing */
+        section {
+            margin-bottom: 4rem;
+        }
 
         .section-header {
             margin-bottom: 2rem;
@@ -143,7 +173,11 @@
             padding-left: 1rem;
         }
 
-        .grid { display: grid; gap: 1.5rem; }
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
         .grid-2 { grid-template-columns: 1fr; }
         .grid-3 { grid-template-columns: 1fr; }
 
@@ -152,6 +186,7 @@
             .grid-3 { grid-template-columns: repeat(3, 1fr); }
         }
 
+        /* Tags & Badges */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -160,6 +195,7 @@
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         .badge-green {
             background: var(--live-accent-dim);
@@ -167,20 +203,72 @@
             border: 1px solid rgba(0, 232, 0, 0.3);
         }
 
-        .text-body { color: #d1d5db; line-height: 1.6; font-size: 0.95rem; }
-        .mode-analytic { font-family: var(--font-analytic); color: #e5e7eb; font-size: 1rem; line-height: 1.8; }
+        /* Price Tags */
+        .price-container {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .price-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+        .price-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 0.2rem;
+        }
 
+        /* Typography Modes */
+        .text-body {
+            color: #d1d5db;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .mode-analytic {
+            font-family: var(--font-analytic);
+            color: #e5e7eb;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Table */
         .table-container {
             width: 100%;
             overflow-x: auto;
             border-radius: 12px;
             border: 1px solid var(--border-subtle);
         }
-        table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-subtle); }
-        th { background: rgba(0,0,0,0.2); color: var(--live-accent); font-size: 0.85rem; text-transform: uppercase; }
-        td { font-family: var(--font-analytic); font-size: 0.9rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        th {
+            background: rgba(0,0,0,0.2);
+            color: var(--live-accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        td {
+            font-family: var(--font-analytic);
+            font-size: 0.9rem;
+        }
 
+        /* Checklist */
         .checklist-item {
             display: flex;
             align-items: flex-start;
@@ -197,24 +285,45 @@
             background: rgba(0, 232, 0, 0.05);
         }
         .check-box {
-            min-width: 20px; height: 20px;
+            min-width: 20px;
+            height: 20px;
             border: 2px solid var(--live-accent);
             border-radius: 4px;
             margin-top: 3px;
         }
 
+        /* Footer */
         footer {
-            margin-top: 4rem; padding: 2rem 0;
+            margin-top: 4rem;
+            padding: 2rem 0;
             border-top: 1px solid var(--border-subtle);
             text-align: center;
             font-size: 0.85rem;
             color: #6b7280;
         }
-        footer a { color: var(--live-accent); text-decoration: none; }
+        footer a {
+            color: var(--live-accent);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 640px) {
+            .kinetic-text {
+                font-size: 1.75rem;
+            }
+            .glass-card {
+                padding: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Environment Layers -->
     <div class="bg-texture"></div>
     <div class="aurora-glow"></div>
 
@@ -236,29 +345,35 @@
         <!-- 1. O Avatar -->
         <section>
             <div class="section-header">
-                <h2 style="font-size: 1.5rem; color: #fff;">1. O Avatar (Perfil Alvo)</h2>
+                <h2 style="font-size: 1.5rem; color: #fff;">1. O Avatar (Target 500k+)</h2>
             </div>
             <div class="grid grid-3">
                 <div class="glass-card">
-                    <div style="color: var(--live-accent); margin-bottom: 1rem;">
-                        <i data-lucide="user" size="24"></i>
+                    <div>
+                        <div style="color: var(--live-accent); margin-bottom: 1rem;">
+                            <i data-lucide="user" size="24"></i>
+                        </div>
+                        <h3 style="margin-bottom: 0.5rem;">Perfil</h3>
+                        <p class="text-body">Empresário faturando acima de R$ 500k/mês. Possui estrutura, mas centraliza decisões.</p>
                     </div>
-                    <h3 style="margin-bottom: 0.5rem;">Perfil</h3>
-                    <p class="text-body">Empresários com operações já validadas e equipe formada, mas que ainda centralizam as decisões críticas.</p>
                 </div>
                 <div class="glass-card">
-                    <div style="color: #ef4444; margin-bottom: 1rem;">
-                        <i data-lucide="flame" size="24"></i>
+                    <div>
+                        <div style="color: #ef4444; margin-bottom: 1rem;">
+                            <i data-lucide="flame" size="24"></i>
+                        </div>
+                        <h3 style="margin-bottom: 0.5rem;">A Dor (Inferno Atual)</h3>
+                        <p class="text-body mode-analytic">"Funcionário de luxo". Tem dinheiro, mas não tem tempo. Medo de sair da empresa e tudo parar. Sente que é o gargalo do crescimento.</p>
                     </div>
-                    <h3 style="margin-bottom: 0.5rem;">A Dor</h3>
-                    <p class="text-body mode-analytic">"Funcionário de luxo". Tem lucro, mas não tem tempo. Medo de sair da operação e o crescimento estagnar.</p>
                 </div>
                 <div class="glass-card">
-                    <div style="color: #3b82f6; margin-bottom: 1rem;">
-                        <i data-lucide="trophy" size="24"></i>
+                    <div>
+                        <div style="color: #3b82f6; margin-bottom: 1rem;">
+                            <i data-lucide="trophy" size="24"></i>
+                        </div>
+                        <h3 style="margin-bottom: 0.5rem;">O Sonho (Céu Futuro)</h3>
+                        <p class="text-body mode-analytic">Liberdade real. Uma empresa que roda sozinha. Ter dados para tomar decisão. Exit (venda) ou dividendos sem esforço operacional.</p>
                     </div>
-                    <h3 style="margin-bottom: 0.5rem;">O Sonho</h3>
-                    <p class="text-body mode-analytic">Liberdade real. Uma empresa autogerenciável que roda baseada em dados, gerando dividendos e valor de mercado.</p>
                 </div>
             </div>
         </section>
@@ -270,42 +385,62 @@
             </div>
             
             <div class="grid grid-2" style="margin-bottom: 1.5rem;">
+                <!-- Main Offer Card -->
                 <div class="glass-card" style="border-color: var(--live-accent);">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
-                        <h3 style="font-size: 1.25rem;">Imersão Presencial</h3>
-                        <span class="badge badge-green">Core Product</span>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
+                            <h3 style="font-size: 1.25rem;">Imersão Presencial</h3>
+                            <span class="badge badge-green">Core Product</span>
+                        </div>
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+                            <li style="display: flex; gap: 0.75rem; align-items: center;">
+                                <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
+                                <span class="text-body">2 a 3 dias de conteúdo prático (Estratégia, Governança, Valuation).</span>
+                            </li>
+                            <li style="display: flex; gap: 0.75rem; align-items: center;">
+                                <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
+                                <span class="text-body"><strong>O Mecanismo:</strong> CEO Scorecard (Diagnóstico de Competência).</span>
+                            </li>
+                            <li style="display: flex; gap: 0.75rem; align-items: center;">
+                                <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
+                                <span class="text-body">Networking Curado (Filtro 500k+).</span>
+                            </li>
+                        </ul>
                     </div>
-                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
-                        <li style="display: flex; gap: 0.75rem; align-items: center;">
-                            <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
-                            <span class="text-body">2 a 3 dias de imersão total (Estratégia, Governança e Escala).</span>
-                        </li>
-                        <li style="display: flex; gap: 0.75rem; align-items: center;">
-                            <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
-                            <span class="text-body"><strong>CEO Scorecard:</strong> Diagnóstico profundo de maturidade de gestão.</span>
-                        </li>
-                        <li style="display: flex; gap: 0.75rem; align-items: center;">
-                            <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
-                            <span class="text-body">Networking com empresários de alta performance.</span>
-                        </li>
-                    </ul>
+                    <!-- Pricing -->
+                    <div class="price-container">
+                        <div>
+                            <span class="price-label">Ingresso Standard</span>
+                            <span class="price-value">R$ 5.000<span style="font-size:0.7em; font-weight:400; color:#9ca3af;">/un</span></span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="price-label">Ancoragem</span>
+                            <span style="text-decoration: line-through; color: #ef4444; font-size: 0.9rem;">R$ 15.000</span>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Guarantee Card -->
                 <div class="glass-card">
-                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
-                        <i data-lucide="shield-check" color="#fff" size="24"></i>
-                        <h3 style="font-size: 1.25rem;">Garantia de Entrega</h3>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                            <i data-lucide="shield-check" color="#fff" size="24"></i>
+                            <h3 style="font-size: 1.25rem;">Garantia "CEO no Comando"</h3>
+                        </div>
+                        <p class="mode-analytic" style="margin-bottom: 1rem;">
+                            "Participe do 1º dia. Se não tiver um plano que pague o ingresso 5x, devolvemos 100% do dinheiro e pagamos seu Uber de volta."
+                        </p>
+                        <div style="height: 1px; background: var(--border-subtle); margin-bottom: 1rem;"></div>
+                        <h4 style="font-size: 0.9rem; color: var(--live-accent); margin-bottom: 0.5rem;">Stack de Bônus:</h4>
+                        <ul class="text-body" style="font-size: 0.85rem; padding-left: 1rem;">
+                            <li>+ Dashboard da Liberdade (KPIs)</li>
+                            <li>+ Kit de Contratação de Líderes</li>
+                            <li>+ Acesso ao Vault de Processos (SOPs)</li>
+                        </ul>
                     </div>
-                    <p class="mode-analytic" style="margin-bottom: 1rem;">
-                        "Se no primeiro dia você não enxergar um plano claro para recuperar seu investimento em múltiplos, devolvemos 100% sem perguntas."
-                    </p>
-                    <div style="height: 1px; background: var(--border-subtle); margin-bottom: 1rem;"></div>
-                    <h4 style="font-size: 0.9rem; color: var(--live-accent); margin-bottom: 0.5rem;">Bônus Exclusivos:</h4>
-                    <ul class="text-body" style="font-size: 0.85rem; padding-left: 1rem;">
-                        <li>+ Dashboard de Gestão (KPIs)</li>
-                        <li>+ Manual de Contratação de Lideranças</li>
-                        <li>+ Biblioteca de Processos (SOPs)</li>
-                    </ul>
+                    <div class="price-container" style="justify-content: center;">
+                        <span class="badge" style="background: rgba(255,255,255,0.1);">Risco Zero</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -313,86 +448,153 @@
         <!-- 3. Funil de Vendas -->
         <section>
             <div class="section-header">
-                <h2 style="font-size: 1.5rem; color: #fff;">3. O Funil Estratégico</h2>
+                <h2 style="font-size: 1.5rem; color: #fff;">3. O Funil (Upsells & Downsells)</h2>
             </div>
             
             <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <!-- Upsells Row -->
                 <div>
                     <h3 style="margin-bottom: 1rem; color: var(--live-accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">
-                        <i data-lucide="trending-up" size="14" style="display:inline; margin-right:5px;"></i> Maximização de Valor
+                        <i data-lucide="trending-up" size="14" style="display:inline; margin-right:5px;"></i> Maximização de Lucro
                     </h3>
                     <div class="grid grid-3">
                         <div class="glass-card">
-                            <h4 style="margin-bottom: 0.5rem;">Upgrade "Boardroom"</h4>
-                            <p class="text-body" style="font-size: 0.85rem;">Experiência VIP com mentoria direta e networking em almoço privado.</p>
+                            <div>
+                                <h4 style="margin-bottom: 0.5rem;">Upgrade "Boardroom"</h4>
+                                <p class="text-body" style="font-size: 0.85rem;">Assentos 1ª fila, almoço privado, check-in VIP. Foco em <strong>Status</strong>.</p>
+                            </div>
+                            <div class="price-container">
+                                <div>
+                                    <span class="price-label">VIP Pass</span>
+                                    <span class="price-value">R$ 15.000</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="glass-card">
-                            <h4 style="margin-bottom: 0.5rem;">Auditoria Técnica</h4>
-                            <p class="text-body" style="font-size: 0.85rem;">Análise pré-imersão dos indicadores por um consultor sênior da Live.</p>
+                            <div>
+                                <h4 style="margin-bottom: 0.5rem;">Auditoria Ponto Cego</h4>
+                                <p class="text-body" style="font-size: 0.85rem;">Análise pré-evento dos números por consultor sênior. Foco em <strong>Velocidade</strong>.</p>
+                            </div>
+                            <div class="price-container">
+                                <div>
+                                    <span class="price-label">Serviço</span>
+                                    <span class="price-value">R$ 2.997</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="glass-card">
-                            <h4 style="margin-bottom: 0.5rem;">Combo Sócio/Diretor</h4>
-                            <p class="text-body" style="font-size: 0.85rem;">Condição especial para trazer o braço direito para o mesmo alinhamento.</p>
+                            <div>
+                                <h4 style="margin-bottom: 0.5rem;">Pacote Sócio</h4>
+                                <p class="text-body" style="font-size: 0.85rem;">40% OFF no 2º ingresso. Foco em <strong>Alinhamento</strong>.</p>
+                            </div>
+                            <div class="price-container">
+                                <div>
+                                    <span class="price-label">2º Ingresso</span>
+                                    <span class="price-value">R$ 3.000</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Downsells Row -->
                 <div>
                     <h3 style="margin-bottom: 1rem; color: #9ca3af; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">
-                        <i data-lucide="trending-down" size="14" style="display:inline; margin-right:5px;"></i> Continuidade & Recuperação
+                        <i data-lucide="trending-down" size="14" style="display:inline; margin-right:5px;"></i> Recuperação de Venda
                     </h3>
                     <div class="grid grid-3">
                         <div class="glass-card" style="opacity: 0.9;">
-                            <h4 style="margin-bottom: 0.5rem;">Passe Digital</h4>
-                            <p class="text-body" style="font-size: 0.85rem;">Acesso às gravações e materiais para quem não pode estar presencialmente.</p>
+                            <div>
+                                <h4 style="margin-bottom: 0.5rem;">Virtual Pass</h4>
+                                <p class="text-body" style="font-size: 0.85rem;">Transmissão ao vivo + Gravações. Para quem tem objeção de <strong>Logística</strong>.</p>
+                            </div>
+                            <div class="price-container">
+                                <div>
+                                    <span class="price-label">Digital</span>
+                                    <span class="price-value">R$ 1.997</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="glass-card" style="opacity: 0.9;">
-                            <h4 style="margin-bottom: 0.5rem;">CEO Toolkit</h4>
-                            <p class="text-body" style="font-size: 0.85rem;">Acesso apenas ao drive de ferramentas e planilhas de gestão.</p>
+                            <div>
+                                <h4 style="margin-bottom: 0.5rem;">CEO Toolkit</h4>
+                                <p class="text-body" style="font-size: 0.85rem;">Apenas o drive com planilhas e templates. Para quem quer <strong>Ferramentas</strong>.</p>
+                            </div>
+                            <div class="price-container">
+                                <div>
+                                    <span class="price-label">Acesso</span>
+                                    <span class="price-value">R$ 997</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="glass-card" style="opacity: 0.9;">
-                            <h4 style="margin-bottom: 0.5rem;">Power Day</h4>
-                            <p class="text-body" style="font-size: 0.85rem;">Acesso reduzido focado apenas no dia de planejamento estratégico.</p>
+                            <div>
+                                <h4 style="margin-bottom: 0.5rem;">Power Day (1 Dia)</h4>
+                                <p class="text-body" style="font-size: 0.85rem;">Acesso apenas ao dia estratégico. Para quem tem objeção de <strong>Tempo</strong>.</p>
+                            </div>
+                            <div class="price-container">
+                                <div>
+                                    <span class="price-label">Day Pass</span>
+                                    <span class="price-value">R$ 1.500</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- 4. Matriz de Benefícios -->
+        <!-- 4. Benefícios -->
         <section>
             <div class="section-header">
-                <h2 style="font-size: 1.5rem; color: #fff;">4. Matriz de Benefícios</h2>
+                <h2 style="font-size: 1.5rem; color: #fff;">4. Matriz de Benefícios (Copy)</h2>
             </div>
             <div class="table-container glass-card" style="padding: 0;">
                 <table>
                     <thead>
                         <tr>
-                            <th>Nível</th>
-                            <th>Entrega</th>
-                            <th>Resultado Prático</th>
+                            <th>Tipo</th>
+                            <th>Benefício Chave</th>
+                            <th>Impacto</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><span class="badge" style="background: rgba(255,255,255,0.1);">Funcional</span></td>
-                            <td>CEO Scorecard</td>
-                            <td>Identificação exata do gargalo que impede a escala.</td>
+                            <td>Acesso ao CEO Scorecard</td>
+                            <td>Diagnóstico preciso do gargalo.</td>
                         </tr>
                         <tr>
-                            <td><span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">Estratégico</span></td>
-                            <td>Clareza de Governança</td>
-                            <td>Saber delegar sem perder o controle do negócio.</td>
+                            <td><span class="badge" style="background: rgba(255,255,255,0.1);">Funcional</span></td>
+                            <td>Templates de Processos</td>
+                            <td>Economia de centenas de horas de criação.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">Dimensional</span></td>
+                            <td>Clareza Imediata</td>
+                            <td>Saber exatamente qual habilidade falta para escalar.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">Dimensional</span></td>
+                            <td>Plano Passo a Passo</td>
+                            <td>Roteiro exato para a segunda-feira pós-evento.</td>
                         </tr>
                         <tr>
                             <td><span class="badge badge-green">Emocional</span></td>
-                            <td>Alívio e Foco</td>
-                            <td>Eliminação da ansiedade por "apagar incêndios" o dia todo.</td>
+                            <td>Alívio Profundo</td>
+                            <td>Saber finalmente onde estava errando.</td>
                         </tr>
                         <tr>
-                            <td><span class="badge badge-green">Elite</span></td>
-                            <td>Tribo Live</td>
-                            <td>Conexão com quem enfrenta os mesmos desafios de gestão.</td>
+                            <td><span class="badge badge-green">Emocional</span></td>
+                            <td>Pertencimento</td>
+                            <td>Estar em uma tribo de elite (não estar só).</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-green">Emocional</span></td>
+                            <td>Segurança</td>
+                            <td>Estar blindado juridicamente e operacionalmente.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -402,16 +604,24 @@
         <!-- 5. Q&A -->
         <section>
             <div class="section-header">
-                <h2 style="font-size: 1.5rem; color: #fff;">5. Quebra de Objeções</h2>
+                <h2 style="font-size: 1.5rem; color: #fff;">5. Quebra de Objeções (Q&A)</h2>
             </div>
             <div class="grid grid-2">
                 <div class="glass-card">
-                    <h4 style="color: var(--live-accent); margin-bottom: 0.5rem;">"Não consigo sair da empresa agora."</h4>
-                    <p class="mode-analytic">Se você não pode sair por 2 dias, você não tem um negócio, tem um emprego autônomo. Este evento é o remédio para essa dependência.</p>
+                    <h4 style="color: var(--live-accent); margin-bottom: 0.5rem;">"Não tenho tempo para sair da empresa."</h4>
+                    <p class="mode-analytic">Se a empresa para sem você, você não tem um negócio, tem um emprego. O evento é justamente para resolver isso e instalar os processos que te darão férias.</p>
                 </div>
                 <div class="glass-card">
-                    <h4 style="color: var(--live-accent); margin-bottom: 0.5rem;">"Já fiz cursos de gestão antes."</h4>
-                    <p class="mode-analytic">A Live não entrega teoria. Entregamos o Toolkit (ferramentas) pronto para aplicação. É sobre implementação, não apenas informação.</p>
+                    <h4 style="color: var(--live-accent); margin-bottom: 0.5rem;">"Meu nicho é muito diferente."</h4>
+                    <p class="mode-analytic">Gestão, Pessoas e Finanças são universais. O foco é na "máquina" do negócio, não no produto. Seja agro ou tech, o balanço contábil é o mesmo.</p>
+                </div>
+                <div class="glass-card">
+                    <h4 style="color: var(--live-accent); margin-bottom: 0.5rem;">"Já fiz cursos e não apliquei."</h4>
+                    <p class="mode-analytic">Nós entregamos as ferramentas prontas (Toolkit) e o Scorecard. É copiar e colar, não criar do zero. Eliminamos a fricção da criação.</p>
+                </div>
+                <div class="glass-card">
+                    <h4 style="color: var(--live-accent); margin-bottom: 0.5rem;">"Minha equipe não vai entender."</h4>
+                    <p class="mode-analytic">Use o upsell "Sócio & Braço Direito". Se eles ouvirem da nossa boca, a validação é externa e a resistência interna diminui drasticamente.</p>
                 </div>
             </div>
         </section>
@@ -422,30 +632,48 @@
                 <h2 style="font-size: 1.5rem; color: #fff;">6. Mapa de Batalha (Checklist)</h2>
             </div>
             <div class="glass-card">
-                <h3 style="margin-bottom: 1rem; color: #fff;">Fase 1: Preparação</h3>
+                
+                <h3 style="margin-bottom: 1rem; color: #fff;">Fase 1: Empacotamento (Hoje)</h3>
                 <div class="checklist-item">
                     <div class="check-box"></div>
                     <div>
-                        <strong style="display:block; color:#fff;">Estruturar o CEO Toolkit</strong>
-                        <span class="text-body" style="font-size:0.9rem;">Organizar os documentos e templates que serão entregues como bônus.</span>
+                        <strong style="display:block; color:#fff;">Renomear Evento</strong>
+                        <span class="text-body" style="font-size:0.9rem;">Focar comunicação em "Maturidade Executiva" e criar pasta "CEO Toolkit".</span>
                     </div>
                 </div>
                 <div class="checklist-item">
                     <div class="check-box"></div>
                     <div>
-                        <strong style="display:block; color:#fff;">Lançar o Scorecard</strong>
-                        <span class="text-body" style="font-size:0.9rem;">Criar o formulário de diagnóstico para qualificação dos participantes.</span>
+                        <strong style="display:block; color:#fff;">Criar Mecanismo</strong>
+                        <span class="text-body" style="font-size:0.9rem;">Configurar Typeform para o CEO Scorecard (Diagnóstico).</span>
                     </div>
                 </div>
 
-                <h3 style="margin: 2rem 0 1rem 0; color: #fff;">Fase 2: Comunicação</h3>
+                <h3 style="margin: 2rem 0 1rem 0; color: #fff;">Fase 2: Precificação & Estrutura (Amanhã)</h3>
                 <div class="checklist-item">
                     <div class="check-box"></div>
                     <div>
-                        <strong style="display:block; color:#fff;">Script de Vendas</strong>
-                        <span class="text-body" style="font-size:0.9rem;">Treinar o time comercial para vender a "liberdade operacional".</span>
+                        <strong style="display:block; color:#fff;">Estrutura de Preços Definida</strong>
+                        <span class="text-body" style="font-size:0.9rem;">Std (R$ 5k), VIP (R$ 15k), Downsell (R$ 997 - R$ 2k).</span>
                     </div>
                 </div>
+
+                <h3 style="margin: 2rem 0 1rem 0; color: #fff;">Fase 3: Tráfego & Vendas (Dias 3-7)</h3>
+                <div class="checklist-item">
+                    <div class="check-box"></div>
+                    <div>
+                        <strong style="display:block; color:#fff;">Rodar Anúncios</strong>
+                        <span class="text-body" style="font-size:0.9rem;">Criativos focados na dor de "ser funcionário de luxo" levando para o Scorecard.</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-box"></div>
+                    <div>
+                        <strong style="display:block; color:#fff;">Treinar Comercial</strong>
+                        <span class="text-body" style="font-size:0.9rem;">Script focado em vender a solução do gargalo apontado no diagnóstico.</span>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -455,20 +683,37 @@
         </footer>
     </div>
 
+    <!-- Scripts for Interactions -->
     <script>
+        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Flashlight effect logic
+        // Flashlight Effect & Physics Tracker
         document.addEventListener('mousemove', (e) => {
             const cards = document.querySelectorAll('.glass-card');
+            
             cards.forEach(card => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
+
+                // Update CSS variables for the flashlight effect
                 card.style.setProperty('--mouse-x', `${x}px`);
                 card.style.setProperty('--mouse-y', `${y}px`);
             });
         });
+
+        // AI-Driven Mode Simulation (Example logic for reading detection)
+        let readingTime = 0;
+        const analyticThreshold = 30; // seconds
+        
+        setInterval(() => {
+            readingTime++;
+            if (readingTime > analyticThreshold) {
+                document.body.classList.add('analytic-mode-active');
+                // Could trigger font changes here if not using CSS classes directly
+            }
+        }, 1000);
     </script>
 </body>
 </html>
