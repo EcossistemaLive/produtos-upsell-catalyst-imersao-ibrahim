@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planejamento Estratégico - Live Consultoria</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* * LIVE CONSULTORIA - DESIGN SYSTEM V6.0
+         * Critical CSS Variables & Refractive Glass
+         */
+
+        :root {
+            /* --- Atmosfera (Backgrounds) --- */
+            --live-deep: #06192a;
+            
+            /* --- Superfícies (Refractive Glass) --- */
+            --live-glass: rgba(10, 36, 61, 0.70);
+            --live-glass-hover: rgba(15, 45, 75, 0.85);
+            --glass-blur: blur(16px) saturate(180%);
+            
+            /* --- Luz & Ação --- */
+            --live-accent: #00e800;
+            --live-accent-dim: rgba(0, 232, 0, 0.15);
+            --kinetic-gradient: linear-gradient(90deg, #ffffff 0%, #cccccc 50%, #00e800 100%);
+            
+            /* --- Física de Animação (Micro-Springs) --- */
+            --spring-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --ease-fluid: cubic-bezier(0.4, 0.0, 0.2, 1);
+            
+            /* --- Bordas Inteligentes --- */
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(0, 232, 0, 0.4);
+
+            /* --- Typography --- */
+            --font-primary: 'Poppins', sans-serif;
+            --font-analytic: 'Merriweather', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--live-deep);
+            color: #ffffff;
+            font-family: var(--font-primary);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-texture {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.05;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .aurora-glow {
+            position: fixed;
+            top: -20%; left: 50%;
+            transform: translateX(-50%);
+            width: 80vw; height: 80vw;
+            background: radial-gradient(circle, rgba(0,232,0,0.08) 0%, rgba(6,25,42,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Kinetic Typography */
+        h1, h2, h3 { font-weight: 600; letter-spacing: -0.02em; }
+
+        .kinetic-text {
+            background: var(--kinetic-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientMove 5s ease infinite alternate;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--live-glass);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: transform 0.4s var(--spring-bounce), border-color 0.3s var(--ease-fluid), background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @media (hover: hover) {
+            .glass-card:hover {
+                transform: translateY(-4px) scale(1.005);
+                border-color: var(--border-active);
+                background: var(--live-glass-hover);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            }
+            .glass-card:hover::before { opacity: 1; }
+        }
+
+        section { margin-bottom: 4rem; }
+
+        .section-header {
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--live-accent);
+            padding-left: 1rem;
+        }
+
+        .grid { display: grid; gap: 1.5rem; }
+        .grid-2 { grid-template-columns: 1fr; }
+        .grid-3 { grid-template-columns: 1fr; }
+
+        @media (min-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr 1fr; }
+            .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-green {
+            background: var(--live-accent-dim);
+            color: var(--live-accent);
+            border: 1px solid rgba(0, 232, 0, 0.3);
+        }
+
+        .text-body { color: #d1d5db; line-height: 1.6; font-size: 0.95rem; }
+        .mode-analytic { font-family: var(--font-analytic); color: #e5e7eb; font-size: 1rem; line-height: 1.8; }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
+        }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-subtle); }
+        th { background: rgba(0,0,0,0.2); color: var(--live-accent); font-size: 0.85rem; text-transform: uppercase; }
+        td { font-family: var(--font-analytic); font-size: 0.9rem; }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .checklist-item:hover {
+            border-color: var(--live-accent);
+            background: rgba(0, 232, 0, 0.05);
+        }
+        .check-box {
+            min-width: 20px; height: 20px;
+            border: 2px solid var(--live-accent);
+            border-radius: 4px;
+            margin-top: 3px;
+        }
+
+        footer {
+            margin-top: 4rem; padding: 2rem 0;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+        footer a { color: var(--live-accent); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-texture"></div>
+    <div class="aurora-glow"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header style="margin-bottom: 4rem;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                <img src="https://raw.githubusercontent.com/Clebito2/ConsultoriaLive/main/Logo%20live%20oficial-21.png" alt="Live Logo" style="height: 40px; width: auto;">
+                <span class="badge badge-green">Planejamento Estratégico</span>
+            </div>
+            <h1 class="kinetic-text" style="font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1;">
+                Imersão de Maturidade Executiva
+            </h1>
+            <p class="text-body mode-analytic" style="margin-top: 1rem; max-width: 600px;">
+                Onde Empresários se tornam CEOs. O protocolo definitivo para sair do operacional, instalar governança e escalar.
+            </p>
+        </header>
+
+        <!-- 1. O Avatar -->
+        <section>
+            <div class="section-header">
+                <h2 style="font-size: 1.5rem; color: #fff;">1. O Avatar (Perfil Alvo)</h2>
+            </div>
+            <div class="grid grid-3">
+                <div class="glass-card">
+                    <div style="color: var(--live-accent); margin-bottom: 1rem;">
+                        <i data-lucide="user" size="24"></i>
+                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">Perfil</h3>
+                    <p class="text-body">Empresários com operações já validadas e equipe formada, mas que ainda centralizam as decisões críticas.</p>
+                </div>
+                <div class="glass-card">
+                    <div style="color: #ef4444; margin-bottom: 1rem;">
+                        <i data-lucide="flame" size="24"></i>
+                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">A Dor</h3>
+                    <p class="text-body mode-analytic">"Funcionário de luxo". Tem lucro, mas não tem tempo. Medo de sair da operação e o crescimento estagnar.</p>
+                </div>
+                <div class="glass-card">
+                    <div style="color: #3b82f6; margin-bottom: 1rem;">
+                        <i data-lucide="trophy" size="24"></i>
+                    </div>
+                    <h3 style="margin-bottom: 0.5rem;">O Sonho</h3>
+                    <p class="text-body mode-analytic">Liberdade real. Uma empresa autogerenciável que roda baseada em dados, gerando dividendos e valor de mercado.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. A Oferta Principal -->
+        <section>
+            <div class="section-header">
+                <h2 style="font-size: 1.5rem; color: #fff;">2. A Oferta Irrecusável</h2>
+            </div>
+            
+            <div class="grid grid-2" style="margin-bottom: 1.5rem;">
+                <div class="glass-card" style="border-color: var(--live-accent);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.25rem;">Imersão Presencial</h3>
+                        <span class="badge badge-green">Core Product</span>
+                    </div>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+                        <li style="display: flex; gap: 0.75rem; align-items: center;">
+                            <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
+                            <span class="text-body">2 a 3 dias de imersão total (Estratégia, Governança e Escala).</span>
+                        </li>
+                        <li style="display: flex; gap: 0.75rem; align-items: center;">
+                            <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
+                            <span class="text-body"><strong>CEO Scorecard:</strong> Diagnóstico profundo de maturidade de gestão.</span>
+                        </li>
+                        <li style="display: flex; gap: 0.75rem; align-items: center;">
+                            <i data-lucide="check-circle" color="var(--live-accent)" size="18"></i>
+                            <span class="text-body">Networking com empresários de alta performance.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-card">
+                    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                        <i data-lucide="shield-check" color="#fff" size="24"></i>
+                        <h3 style="font-size: 1.25rem;">Garantia de Entrega</h3>
+                    </div>
+                    <p class="mode-analytic" style="margin-bottom: 1rem;">
+                        "Se no primeiro dia você não enxergar um plano claro para recuperar seu investimento em múltiplos, devolvemos 100% sem perguntas."
+                    </p>
+                    <div style="height: 1px; background: var(--border-subtle); margin-bottom: 1rem;"></div>
+                    <h4 style="font-size: 0.9rem; color: var(--live-accent); margin-bottom: 0.5rem;">Bônus Exclusivos:</h4>
+                    <ul class="text-body" style="font-size: 0.85rem; padding-left: 1rem;">
+                        <li>+ Dashboard de Gestão (KPIs)</li>
+                        <li>+ Manual de Contratação de Lideranças</li>
+                        <li>+ Biblioteca de Processos (SOPs)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Funil de Vendas -->
+        <section>
+            <div class="section-header">
+                <h2 style="font-size: 1.5rem; color: #fff;">3. O Funil Estratégico</h2>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--live-accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                        <i data-lucide="trending-up" size="14" style="display:inline; margin-right:5px;"></i> Maximização de Valor
+                    </h3>
+                    <div class="grid grid-3">
+                        <div class="glass-card">
+                            <h4 style="margin-bottom: 0.5rem;">Upgrade "Boardroom"</h4>
+                            <p class="text-body" style="font-size: 0.85rem;">Experiência VIP com mentoria direta e networking em almoço privado.</p>
+                        </div>
+                        <div class="glass-card">
+                            <h4 style="margin-bottom: 0.5rem;">Auditoria Técnica</h4>
+                            <p class="text-body" style="font-size: 0.85rem;">Análise pré-imersão dos indicadores por um consultor sênior da Live.</p>
+                        </div>
+                        <div class="glass-card">
+                            <h4 style="margin-bottom: 0.5rem;">Combo Sócio/Diretor</h4>
+                            <p class="text-body" style="font-size: 0.85rem;">Condição especial para trazer o braço direito para o mesmo alinhamento.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: #9ca3af; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                        <i data-lucide="trending-down" size="14" style="display:inline; margin-right:5px;"></i> Continuidade & Recuperação
+                    </h3>
+                    <div class="grid grid-3">
+                        <div class="glass-card" style="opacity: 0.9;">
+                            <h4 style="margin-bottom: 0.5rem;">Passe Digital</h4>
+                            <p class="text-body" style="font-size: 0.85rem;">Acesso às gravações e materiais para quem não pode estar presencialmente.</p>
+                        </div>
+                        <div class="glass-card" style="opacity: 0.9;">
+                            <h4 style="margin-bottom: 0.5rem;">CEO Toolkit</h4>
+                            <p class="text-body" style="font-size: 0.85rem;">Acesso apenas ao drive de ferramentas e planilhas de gestão.</p>
+                        </div>
+                        <div class="glass-card" style="opacity: 0.9;">
+                            <h4 style="margin-bottom: 0.5rem;">Power Day</h4>
+                            <p class="text-body" style="font-size: 0.85rem;">Acesso reduzido focado apenas no dia de planejamento estratégico.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Matriz de Benefícios -->
+        <section>
+            <div class="section-header">
+                <h2 style="font-size: 1.5rem; color: #fff;">4. Matriz de Benefícios</h2>
+            </div>
+            <div class="table-container glass-card" style="padding: 0;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nível</th>
+                            <th>Entrega</th>
+                            <th>Resultado Prático</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge" style="background: rgba(255,255,255,0.1);">Funcional</span></td>
+                            <td>CEO Scorecard</td>
+                            <td>Identificação exata do gargalo que impede a escala.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa;">Estratégico</span></td>
+                            <td>Clareza de Governança</td>
+                            <td>Saber delegar sem perder o controle do negócio.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-green">Emocional</span></td>
+                            <td>Alívio e Foco</td>
+                            <td>Eliminação da ansiedade por "apagar incêndios" o dia todo.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="badge badge-green">Elite</span></td>
+                            <td>Tribo Live</td>
+                            <td>Conexão com quem enfrenta os mesmos desafios de gestão.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 5. Q&A -->
+        <section>
+            <div class="section-header">
+                <h2 style="font-size: 1.5rem; color: #fff;">5. Quebra de Objeções</h2>
+            </div>
+            <div class="grid grid-2">
+                <div class="glass-card">
+                    <h4 style="color: var(--live-accent); margin-bottom: 0.5rem;">"Não consigo sair da empresa agora."</h4>
+                    <p class="mode-analytic">Se você não pode sair por 2 dias, você não tem um negócio, tem um emprego autônomo. Este evento é o remédio para essa dependência.</p>
+                </div>
+                <div class="glass-card">
+                    <h4 style="color: var(--live-accent); margin-bottom: 0.5rem;">"Já fiz cursos de gestão antes."</h4>
+                    <p class="mode-analytic">A Live não entrega teoria. Entregamos o Toolkit (ferramentas) pronto para aplicação. É sobre implementação, não apenas informação.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Plano de Ação -->
+        <section>
+            <div class="section-header">
+                <h2 style="font-size: 1.5rem; color: #fff;">6. Mapa de Batalha (Checklist)</h2>
+            </div>
+            <div class="glass-card">
+                <h3 style="margin-bottom: 1rem; color: #fff;">Fase 1: Preparação</h3>
+                <div class="checklist-item">
+                    <div class="check-box"></div>
+                    <div>
+                        <strong style="display:block; color:#fff;">Estruturar o CEO Toolkit</strong>
+                        <span class="text-body" style="font-size:0.9rem;">Organizar os documentos e templates que serão entregues como bônus.</span>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="check-box"></div>
+                    <div>
+                        <strong style="display:block; color:#fff;">Lançar o Scorecard</strong>
+                        <span class="text-body" style="font-size:0.9rem;">Criar o formulário de diagnóstico para qualificação dos participantes.</span>
+                    </div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem 0; color: #fff;">Fase 2: Comunicação</h3>
+                <div class="checklist-item">
+                    <div class="check-box"></div>
+                    <div>
+                        <strong style="display:block; color:#fff;">Script de Vendas</strong>
+                        <span class="text-body" style="font-size:0.9rem;">Treinar o time comercial para vender a "liberdade operacional".</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>₢ Powered by <a href="mailto:cleberdonato@ecossistemalive.com.br">Cléber Donato</a>.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.6;">Live Consultoria - Design System V6.0</p>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Flashlight effect logic
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.glass-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
